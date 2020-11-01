@@ -20,15 +20,18 @@ window.onload = function()
             secs++; console.log(secs);
           if(secs >= 100){
             clearInterval(id);
-            $('.gameOver').remove();
-            alert('Total Time: ' + secs + ' seconds');
+           // $('.gameOver').remove();
+            alert('Game Over');
+            //var $levelSelect = $("<div class='level-select'><p>How tall?</p><div class='level-select-box'><p class='arrow left'><</p><span class='level'>4</span><p class='arrow right'>></p></div></div>")
+
+
            }
         }, 1000);
     };
 
-
+var arr = [ ];
 var game = {
-  rings: 4,
+  rings: 3,
   moves: 0,
   active: false,
   originCol: {},
@@ -71,9 +74,9 @@ var game = {
     });
 
     // clicking level-select arrows
-    $c2.on('click', '.arrow', function(){
-      game.selectLevel($(this));
-    });
+   // $c2.on('click', '.arrow', function(){
+   //   game.selectLevel($(this));
+   // });
   },
   click: function(clicked) {
     clickedRing = clicked.children('.ring').eq(0);
@@ -137,10 +140,32 @@ var game = {
   },
   gameOver: function() {
     this.over = true;
+    
     var perfect = Math.pow(2, this.rings) - 1;
-    $('.c2').prepend("<div class='gameOver report'></div>")
-   // $('.c2').prepend("<div class='gameOver big'>YOU WIN!</div>");
-    $('.report').html("<p>Total moves: " + this.moves);
+    //var r = this.rings;
+    if( moves => perfect - 2 && moves <= perfect + 2)
+      {
+       
+        arr.push(1);
+      }
+      else{
+        arr.push(0);
+        
+      }
+    $('.c2').prepend("<div class='gameOver big'>Next Level</div>");
+   // document.getElementById("gameOver big").innerHTML = arr;
+    this.rings++;
+      
+   
+    
+    //$('.c2').prepend("<div class='gameOver report'></div>")
+   // $('.c2').prepend("<div class='gameOver big'>Next Level</div>");
+  //  console.log(res) 
+   // $reset.html('next level');
+    
+   // $('.gameOver').remove();
+    //reset.show();
+   // $('.report').html("<p>Total moves: " + this.moves);
   },
   reset: function() {
     // this will be better when I can just make another instance with a constructor function, right?
@@ -154,20 +179,21 @@ var game = {
     this.targetCol = {};
     this.originCol = {};
     $moves.html('MOVES: ' + this.moves);
-    $reset.html('RESET');
+    $reset.html('next level');
     $('.level-select').remove();
     $('.gameOver').remove();
-    $levelButton.show();
+    $('.reset').show();
   },
   selectLevel: function(arrow) {
-    var $level = $('.level');
+    /*var $level = $('.level');
     if (arrow.hasClass('left')) {
       if (this.rings > 3) {
         this.rings--;
       }
     } else if (this.rings < 15 ){
       this.rings++;
-    }
+    }*/
+    this.rings= arrow
     $level.html(this.rings);
     this.generateRings(this.rings);
   },
@@ -175,9 +201,9 @@ var game = {
     $reset.html('START');
     $levelButton.hide();
     this.over = true;
-    var $levelSelect = $("<div class='level-select'><p>How tall?</p><div class='level-select-box'><p class='arrow left'><</p><span class='level'>4</span><p class='arrow right'>></p></div></div>");
+    var $levelSelect = //$("<div class='level-select'><p>How tall?</p><div class='level-select-box'><p class='arrow left'><</p><span class='level'>4</span><p class='arrow right'>></p></div></div>");
     $columns.children().remove();
-    $c2.append($levelSelect);
+   // $c2.append($levelSelect);
     $('.level').html(this.rings);
     this.generateRings(this.rings);
   },
