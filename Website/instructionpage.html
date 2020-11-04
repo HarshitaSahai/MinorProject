@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="login.css">
+    <style>
+           p{
+        overflow-y: scroll;
+        height: 300px;
+        width: 700px;
+        font-family: "Poppins", sans-serif;
+        resize: none; /* Remove this if you want the user to resize the textarea */
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 20px;
+        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        overflow: hidden
+    }
+    .wrapper {
+                display: flex;
+                flex-direction: column; 
+                justify-content: space-around;
+                width: 100%;
+                height: 400px;
+                padding: 20px;    
+                background-color: #56baed;
+                position: relative;
+                border-radius: 10px 10px 10px 10px;
+                top: 70px;
+            }
+    .s {
+        font-size: 20px;
+    }
+    </style>
+    <script type="text/javascript">
+        function terms_changed(termsCheckBox){
+    //If the checkbox has been checked
+    if(termsCheckBox.checked)
+    {
+        //Set the disabled property to FALSE and enable the button.
+       // document.getElementById("submit_button").disabled = false;
+       //wait(1000);
+       window.location = 'Games/Card Game.html';
+    } else{
+        //Otherwise, disable the submit button.
+        lert("Please check the ");
+    }
+    }
+    </script>
+</head>
+<body>
+<header>
+    <article>Welcome to your Cognitive Abilty Assessment</article>
+    <article>Incase of any issue call +91 XXXXXXXXXX or Email: techsuopport@cognitveability.com</article>
+</header>
+<div class="wrapper fadeInDown">
+   
+      <!-- Tabs Titles -->
+      <p>
+        1. You will be demonstrated with different games.<br>
+        2. Before each game, there will a detailed instruction of how the game has to be played. <br>
+        3. The games are provided with different levels and your task is to reach the highest level with a minimum number of errors in the provided time.<br>
+        4. Please read the instructions carefully before each game in order to avoid any uncertainty. <br> <br>
+      
+    
+                        <input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" />
+                        <label for="terms_and_conditions"><i>I have read the instructions carefully.</i></label>
+        </p>
+
+    
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>
