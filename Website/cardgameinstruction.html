@@ -5,14 +5,14 @@
     <style>
            p{
         overflow-y: scroll;
-        height: 300px;
+        height: 400px;
         width: 700px;
         font-family: "Poppins", sans-serif;
         resize: none; /* Remove this if you want the user to resize the textarea */
         background-color: white;
         margin-left: auto;
         margin-right: auto;
-        font-size: 18px;
+        font-size: 20px;
         box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
         overflow: hidden
     }
@@ -40,7 +40,7 @@
         //Set the disabled property to FALSE and enable the button.
        // document.getElementById("submit_button").disabled = false;
        //wait(1000);
-       window.location = 'cardgameinstruction.html';
+       window.location = 'Games/Card Game.html';
     } else{
         //Otherwise, disable the submit button.
         lert("Please check the ");
@@ -50,17 +50,19 @@
 </head>
 <body>
 <header>
-    <article>Welcome to your Cognitive Abilty Assessment</article>
+    <article>Welcome to your Game</article>
     <article>Incase of any issue call +91 XXXXXXXXXX or Email: techsupport@cognitveability.com</article>
 </header>
 <div class="wrapper fadeInDown">
    
       <!-- Tabs Titles -->
       <p>
-        1. You will be demonstrated with different games.<br>
-        2. Before each game, there will a detailed instruction of how the game has to be played. <br>
-        3. The games are provided with different levels and your task is to reach the highest level with a minimum number of errors in the provided time.<br>
-        4. Please read the instructions carefully before each game in order to avoid any uncertainty. <br> <br>
+        Please read the instructions carefully before each game in order to avoid any uncertainty.<br>
+             
+        1. The game consists of different cards in a grid form.<br>
+        2. You have to tap on the card to flip the card.<br>
+        3. Now ,tap on the another card to match the pre-flipped card. <br>  
+        4. Try to match all the cards in minimum  wrong attempts.<br><br>
       
     
                         <input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" />

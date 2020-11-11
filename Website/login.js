@@ -11,19 +11,27 @@ var firebaseConfig = {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
  // firebase.analytics();
+ 
+ // firebase.analytics();
   const auth = firebase.auth();
-  function start()
-  {
-        var email = document.getElementById('email');
-        var password = document.getElementById('password');
-        
-        const promise = auth.signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            // ...
-          });
-        console.log("uvnwi")
-        promise.catch(e => alert(e.message));
-        alert("Signed in" + email);
-  }
+  const loginform = document.querySelector('#login-form');
+  loginform.addEventListener('submit',(e) => {
+    e.preventDefault();
+      const email = loginform['email'].value;
+      const password = loginform['password'].value;
+    //  const promise = auth.createUserWithEmailAndPassword(email,password); sign up 
+    const promise = auth.signInWithEmailAndPassword(email,password);
+    auth.onAuthStateChanged(function(user){
+      if(user){
+      //const email = user.email;
+      //alert("Active user " + user.email);
+      window.location = 'instructionpage.html';
+      
+      }
+      else{
+        alert("No ACtive user");
+      }
+    })
+
+  })
+      
