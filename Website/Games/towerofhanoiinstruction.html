@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="login.css">
+    <style>
+           p{
+        overflow-y: scroll;
+        height: 1500px;
+        width: 700px;
+        font-family: "Poppins", sans-serif;
+        resize: none; /* Remove this if you want the user to resize the textarea */
+        background-color: white;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 18px;
+        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        overflow: hidden
+    }
+    .wrapper {
+                display: flex;
+                flex-direction: column; 
+                justify-content: space-around;
+                width: 100%;
+                height: 400px;
+                padding: 20px;    
+                background-color: #56baed;
+                position: relative;
+                border-radius: 10px 10px 10px 10px;
+                top: 70px;
+            }
+    .s {
+        font-size: 20px;
+    }
+    </style>
+    <script type="text/javascript">
+        function terms_changed(termsCheckBox){
+    //If the checkbox has been checked
+    if(termsCheckBox.checked)
+    {
+        //Set the disabled property to FALSE and enable the button.
+       // document.getElementById("submit_button").disabled = false;
+       //wait(1000);
+       window.location = 'tohgame.html';
+    } else{
+        //Otherwise, disable the submit button.
+        lert("Please check the ");
+    }
+    }
+    </script>
+</head>
+<body>
+<header>
+    <article>Welcome to your Game</article>
+    <article>Incase of any issue call +91 XXXXXXXXXX or Email: techsupport@cognitveability.com</article>
+</header>
+<div class="wrapper fadeInDown">
+   
+      <!-- Tabs Titles -->
+      <p>
+        Please read the instructions carefully before each game in order to avoid any uncertainty.<br><br>
+             
+        1. The game consists of three pegs or towers with n disks placed one over the other.<br>
+        2. You have to move the stack to another peg following these simple rules.<br>
+            2(a).  Only one disk can be moved at a time.<br>
+            2(b).  No disk can be placed on top of the smaller disk.<br>
+        3. You have to move Disk from tower A(Original Disk) to C(Destination Disk) by using B(Auxilliary Disc).    <br>
+        4. The level of the game increase one by one and You have to move the original disk in the destination Disk with less time and less move for perfect score.
+        <br><br>
+    
+                        <input type="checkbox" id="terms_and_conditions" value="1" onclick="terms_changed(this)" />
+                        <label for="terms_and_conditions"><i>I have read the instructions carefully.</i></label>
+        </p>
+
+    
+</div>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>

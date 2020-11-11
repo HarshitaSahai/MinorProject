@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="urf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=.8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+ 
+  <link rel="icon" type="image/png" href="/images/rahul3v.png">
+  <style type="text/css">
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f5f5;
+      user-select: none;
+      -moz-user-select: none;
+      touch-action: manipulation;
+    }
+
+    body,
+    html,
+    #game {
+      height: 100%;
+    }
+
+    .grid {
+      display: grid;
+      height: 100%;
+      place-content: center;
+      grid-template: repeat(6, 16vmin)/repeat(4, 16vmin);
+      grid-gap: .66vmin;
+    }
+
+    .card {
+      position: relative;
+      transition: all .4s linear;
+      transform-style: preserve-3d;
+    }
+
+    .card,
+    .back,
+    .front {
+      height: 100%;
+      width: 100%;
+    }
+
+    .back,
+    .front {
+      position: absolute;
+      backface-visibility: hidden;
+    }
+
+    .front {
+      background: #56baed url('/images/rahul3v.png') no-repeat center center / contain scroll;
+      /*#FAB942*/
+      cursor: pointer;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+      font-size: 10vmin;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f27d9a;
+    }
+
+    .selected {
+      transform: rotateY(180deg);
+    }
+
+    .match .front {
+      visibility: hidden;
+      pointer-events: none;
+      /**/
+    }
+
+    .fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      font-size: 20px;
+      background-color: #42FAB3;
+      padding: 5px 16px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <div id="game"></div>
+  <script>
+
+    var totAttempts = 0;  // Attempts including all the three levels
+    
+    function game() {
+      var levelWiseRows = [4, 4, 4]
+      var levelWiseCols = [4, 5, 6]
+      var totLevels = levelWiseCols.length
+      var level = 0;
+      const cardsArray = [
+        { 'name': 'a', 'text': '🎃' },
+        { 'name': 'b', 'text': '🎆' },
+        { 'name': 'c', 'text': '🎅' },
+        { 'name': 'd', 'text': '🎂' },
+        { 'name': 'e', 'text': '🎈' },
+        { 'name': 'f', 'text': '🎉' },
+        { 'name': 'g', 'text': '🎍' },
+        { 'name': 'h', 'text': '🎎' },
+        { 'name': 'i', 'text': '🎊' },
+        { 'name': 'j', 'text': '🎄' },
+        { 'name': 'k', 'text': '🎁' },
+        { 'name': 'l', 'text': '🎋' }
+      ];
+
+      
+
+      var currRows = levelWiseRows[level]
+      var currCols = levelWiseCols[level]
+      var totElements = currRows * currCols;
+
+      var currCardsArray = cardsArray.slice(0, totElements / 2)
+
+      var gameGrid = currCardsArray.concat(currCardsArray);
+
+      var firstGuess = secondGuess = '',
+        count = score = 0,
+        chances = -totElements/2,
+        delay = 800,
+        game = document.getElementById('game'),
+        grid = document.createElement('section');
+      grid.setAttribute('class', 'grid');
+      grid.style.gridTemplate = "repeat(" + currRows + ", 16vmin)/repeat(" + currCols + ", 16vmin)";
+
+      var creategrid = () => {
+        game.appendChild(grid);
+        gameGrid = gameGrid.sort(() => 0.5 - Math.random());
+
+        gameGrid.forEach(item => {
+          let card = document.createElement('div');
+          card.classList.add('card');
+          card.dataset.name = item.name;
+
+          let front = document.createElement('div');
+          front.classList.add('front');
+
+          let back = document.createElement('div');
+          back.classList.add('back');
+          back.textContent = item.text;
+
+          grid.appendChild(card);
+          card.appendChild(front);
+          card.appendChild(back);
+        });
+      };
+
+      creategrid();
+      var match = () => {
+        let selected = document.querySelectorAll('.selected');
+        selected.forEach(card => { card.classList.add('match'); });
+      };
+
+      var resetGuesses = () => {
+        firstGuess = secondGuess = '';
+        count = 0;
+
+        let selected = document.querySelectorAll('.selected');
+        selected.forEach(card => { card.classList.remove('selected'); });
+      };
+      var resetAll = () => {
+        grid.innerHTML = "";
+        currRows = levelWiseRows[level]
+        currCols = levelWiseCols[level]
+        totElements = currRows * currCols;
+        currCardsArray = cardsArray.slice(0, totElements / 2)
+        gameGrid = currCardsArray.concat(currCardsArray);
+
+        firstGuess = secondGuess = '',
+        count = score = 0,
+        chances = -totElements/2;
+        delay = 800,
+      grid.style.gridTemplate = "repeat(" + currRows + ", 16vmin)/repeat(" + currCols + ", 16vmin)";
+
+        creategrid();
+        //level++;
+      };
+      grid.addEventListener('click', e => {
+        var clicked = e.target;
+        //console.log(clicked.nodeName);
+        if (clicked.nodeName === 'SECTION' || clicked.parentNode.classList.contains('selected') || clicked.parentNode.classList.contains('match') || clicked.parentNode.classList.contains('grid')) {
+          return;
+        }
+        if (count < 2) {
+          count++;
+          clicked.parentNode.classList.add('selected');
+          if (count === 1) {
+            firstGuess = clicked.parentNode.dataset.name; //console.log(firstGuess);
+          } else {
+            secondGuess = clicked.parentNode.dataset.name;  //console.log(secondGuess);
+            chances++;
+            
+            if (firstGuess === secondGuess) setTimeout(match, delay), score++;
+            setTimeout(resetGuesses, delay);
+            console.log(level, totLevels)
+            if (score == totElements / 2 && level == totLevels-1) {
+              console.log(totAttempts)
+              totAttempts += chances;
+              window.location = 'towerofhanoiinstruction.html';
+              //resetAll();
+              // send to server
+            }
+            else if (score == totElements / 2) {
+              level++;
+              totAttempts += chances;
+              resetAll();
+            }
+          }
+        }
+      });
+
+
+
+
+    }
+
+
+
+    game()
+  </script>
+</body>
+
+</html>
